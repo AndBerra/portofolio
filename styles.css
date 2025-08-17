@@ -39,7 +39,7 @@ header .nav-link { color: var(--text-muted-color); text-decoration: none; font-w
 header .nav-link:hover { color: var(--primary-color); }
 header .nav-link.active { color: var(--primary-color); font-weight: 600; }
 
-/* --- CORE LOGIC FOR TABBED PAGES - UNCHANGED --- */
+/* --- tab page logic --- */
 main {
     padding-top: var(--header-height);
 }
@@ -57,7 +57,7 @@ main {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- REFACTORED HOME PAGE CONTENT LAYOUT --- */
+/** --- home page layout --- **/
 .home-layout {
     display: flex;
     width: 100%;
@@ -153,7 +153,7 @@ main {
 .snapshot-title { font-weight: 600; color: var(--text-color); }
 .snapshot-company { color: var(--text-muted-color); font-size: 0.9rem; }
 
-/* --- STYLES FOR OTHER PAGES (UNCHANGED) --- */
+/** --- Pages style --- **/
 .timeline { position: relative; padding-left: 30px; }
 .timeline::before { content: ''; position: absolute; left: 0; top: 10px; bottom: 10px; width: 2px; background: var(--border-color); }
 .timeline-item { position: relative; margin-bottom: 2.5rem; }
@@ -245,4 +245,159 @@ main {
 @keyframes glitch-in {
     0% { transform: translateY(30px) scale(0.9); opacity: 0; }
     100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/** --- Chatbot Styles --- **/
+/* Container for the whole chatbot UI */
+#chatbot-container {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 1000;
+}
+
+/* The round button to open the chat */
+#chat-toggle {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 200, 150, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#chat-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 200, 150, 0.6);
+}
+
+/* The main chat window */
+#chat-window {
+    position: absolute;
+    bottom: 80px; 
+    right: 0;
+    width: 350px;
+    max-height: 500px;
+    background-color: var(--card-bg-color);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    /* Animation setup */
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+/* Class to show the chat window */
+#chat-window.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Chat window header */
+.chat-header {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--primary-color);
+    border-bottom: 1px solid var(--border-color);
+}
+.chat-header h3 { margin: 0; font-size: 1.1rem; }
+#chat-close {
+    background: none;
+    border: none;
+    color: var(--text-muted-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* Area where messages appear */
+#chat-messages {
+    flex-grow: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Individual message bubbles */
+.chat-message {
+    padding: 10px 15px;
+    border-radius: 18px;
+    max-width: 80%;
+    line-height: 1.5;
+}
+.bot-message {
+    background-color: #2c3a4f;
+    color: var(--text-color);
+    align-self: flex-start;
+    border-bottom-left-radius: 4px;
+}
+.user-message {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
+    align-self: flex-end;
+    border-bottom-right-radius: 4px;
+}
+
+/* Typing indicator (the three dots) */
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+.typing-indicator span {
+    height: 8px;
+    width: 8px;
+    margin: 0 2px;
+    background-color: var(--text-muted-color);
+    border-radius: 50%;
+    display: inline-block;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+.typing-indicator span:nth-child(1) { animation-delay: -0.32s; }
+.typing-indicator span:nth-child(2) { animation-delay: -0.16s; }
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0); }
+    40% { transform: scale(1.0); }
+}
+
+/* Area for user option buttons */
+#chat-options {
+    padding: 1rem;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.chat-option-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.chat-option-btn:hover {
+    background-color: var(--primary-color);
+    color: var(--bg-color);
 }

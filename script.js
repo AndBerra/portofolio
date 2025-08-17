@@ -145,4 +145,171 @@ document.addEventListener('DOMContentLoaded', () => {
         init();
         animate();
     }
+
+     // --- CHATBOT LOGIC ---
+    const chatToggle = document.getElementById('chat-toggle');
+    const chatWindow = document.getElementById('chat-window');
+    const closeBtn = document.getElementById('chat-close');
+    const messagesContainer = document.getElementById('chat-messages');
+    const optionsContainer = document.getElementById('chat-options');
+
+    // --- DIALOGUE DATA ---
+    // Easy to edit all bot dialogue in one place
+    const dialogue = {
+        greeting: {
+            text: "Hello. I'm And-droid, an interactive assistant for Andrea Berra's portfolio. I can provide key highlights of his profile. How can I help you?",
+            options: [
+                { text: "View Technical Skills", next: "skills_overview" },
+                { text: "View Key Projects", next: "projects_overview" },
+                { text: "View Contact Info", next: "contact" }
+            ]
+        },
+        skills_overview: {
+            text: "Core Skills: C++, Python, ROS/ROS2, PX4, Gazebo.\nFocus: Full-stack development for autonomous aerial systems.",
+            options: [
+                { text: "More on his C++/ROS work", next: "skills_core_tech" },
+                { text: "Tell me about his projects", next: "projects_overview" },
+                { text: "Return to main menu", next: "main_questions" }
+            ]
+        },
+        skills_core_tech: {
+            text: "He uses C++ within ROS2 for performance-critical tasks like control and estimation, ensuring system reliability. The Omniquad project demonstrates this application.",
+            options: [
+                { text: "Tell me about Omniquad", next: "projects_omniquad" },
+                { text: "Return to main menu", next: "main_questions" }
+            ]
+        },
+        projects_overview: {
+            text: "Key projects are Omniquad (advanced drone control) and GIN (AI perception). Which would you like details on?",
+            options: [
+                { text: "Omniquad Details", next: "projects_omniquad" },
+                { text: "GIN Details", next: "projects_gin" },
+                { text: "Return to main menu", next: "main_questions" }
+            ]
+        },
+        projects_omniquad: {
+            text: "Omniquad is a full framework for omnidirectional drones. It showcases his management of a complex stack including C++, ROS2, PX4, and Gazebo simulation.",
+            options: [
+                { text: "What about the GIN project?", next: "projects_gin" },
+                { text: "Recap his skills", next: "skills_overview" },
+                { text: "Return to main menu", next: "main_questions" }
+            ]
+        },
+        projects_gin: {
+             text: "GIN is a lightweight AI target tracker (Python/YOLO) for resource-constrained hardware. It highlights his skill in deploying efficient perception systems.",
+             options: [
+                { text: "Tell me about Omniquad again", next: "projects_omniquad" },
+                { text: "How can I contact him?", next: "contact" },
+                { text: "Return to main menu", next: "main_questions" }
+            ]
+        },
+        contact: {
+            text: "Contact via email (andrea.berra@outlook.com) or LinkedIn (linkedin.com/in/andrea-berra/).",
+            options: [
+                { text: "Ask another question", next: "main_questions" },
+                { text: "That is all, thank you.", next: "end" }
+            ]
+        },
+        main_questions: {
+             text: "Main menu. What is your next query?",
+             options: [
+                { text: "Technical Skills", next: "skills_overview" },
+                { text: "Key Projects", next: "projects_overview" },
+                { text: "Contact Info", next: "contact" }
+            ]
+        },
+        end: {
+            text: "You're welcome. Session terminated.",
+            options: []
+        }
+    };
+
+    // --- HELPER FUNCTIONS ---
+
+    // Adds a message bubble to the chat
+    function addMessage(text, sender) {
+        const messageElement = document.createElement('div');
+        messageElement.className = `chat-message ${sender}-message`;
+        messageElement.textContent = text;
+        messagesContainer.appendChild(messageElement);
+        // Scroll to the latest message
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Displays the typing indicator
+    function showTypingIndicator() {
+        messagesContainer.innerHTML += `
+            <div class="typing-indicator" id="typing-indicator">
+                <span></span><span></span><span></span>
+            </div>`;
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Removes the typing indicator
+    function hideTypingIndicator() {
+        const indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+    }
+
+    // Shows a set of option buttons
+    function showOptions(options) {
+        optionsContainer.innerHTML = '';
+        if (options.length === 0) return;
+
+        options.forEach(option => {
+            const button = document.createElement('button');
+            button.className = 'chat-option-btn';
+            button.textContent = option.text;
+            button.dataset.next = option.next;
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    // --- CORE LOGIC ---
+    function handleOptionClick(e) {
+        if (!e.target.matches('.chat-option-btn')) return;
+
+        const selectedOption = e.target;
+        const nextNodeKey = selectedOption.dataset.next;
+        
+        // 1. Display user's choice
+        addMessage(selectedOption.textContent, 'user');
+        
+        // 2. Clear options and show typing indicator
+        optionsContainer.innerHTML = '';
+        showTypingIndicator();
+
+        // 3. Simulate bot thinking and then respond
+        setTimeout(() => {
+            hideTypingIndicator();
+            const responseNode = dialogue[nextNodeKey];
+            if (responseNode) {
+                addMessage(responseNode.text, 'bot');
+                showOptions(responseNode.options);
+            }
+        }, 1500); // 1.5 second delay for "thinking"
+    }
+
+    function openChat() {
+        chatWindow.classList.add('open');
+        // Initial greeting if chat is empty
+        if (messagesContainer.children.length === 0) {
+            setTimeout(() => {
+                const greetingNode = dialogue.greeting;
+                addMessage(greetingNode.text, 'bot');
+                showOptions(greetingNode.options);
+            }, 500);
+        }
+    }
+
+    function closeChat() {
+        chatWindow.classList.remove('open');
+    }
+
+    // --- EVENT LISTENERS ---
+    chatToggle.addEventListener('click', () => {
+        chatWindow.classList.contains('open') ? closeChat() : openChat();
+    });
+    closeBtn.addEventListener('click', closeChat);
+    optionsContainer.addEventListener('click', handleOptionClick);
 });
