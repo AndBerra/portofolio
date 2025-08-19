@@ -29,7 +29,9 @@
         <section id="home" class="page-section">
             <div class="home-layout">
                 <div class="home-bio">
-                    <div class="name-logo">Andrea Berra</div>
+                    <div class="profile-photo-holder">
+                        <img src="path/to/your/photo.jpg" alt="Andrea Berra Profile Photo">
+                    </div>
 
                     <h1>Andrea Berra</h1>
                     <p class="title">Aerial Robotics Engineer</p>
@@ -41,7 +43,7 @@
                         <a href="https://www.linkedin.com/in/andrea-berra/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
                         <a href="mailto:andrea.berra@outlook.com"><i class="fas fa-envelope"></i> Email</a>
                     </div>
-                    <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv">
+                    <a href="doc/cv.pdf" target="_blank" rel="noopener noreferrer" class="btn-cv">
                         <i class="fas fa-eye"></i> View CV
                     </a>
                 </div>
@@ -162,15 +164,21 @@
                     <div class="project-image-container">
                         <a href="#" target="_blank">
                             <video autoplay loop muted playsinline class="project-image">
-                                <source src="omniquad_video.mp4" type="video/mp4">
+                                <source src="media/omniquad_video.mp4" type="video/mp4">
                             </video>
                         </a>
                     </div>
                     <div class="project-details">
                         <h3 class="project-title">Omniquad</h3>
                         <p class="project-description">An open-source framework for building and controlling omnidirectional aerial vehicles. Designed for robust physical interaction tasks, this project provides a full software and hardware stack integrated with PX4 and ROS2.</p>
-                        <div class="project-tech-stack"><span class="tech-tag">C++</span><span class="tech-tag">ROS2</span><span class="tech-tag">PX4</span><span class="tech-tag">Gazebo</span></div>
-                        <div class="project-links"><a href="#" class="btn-project" target="_blank"><i class="fas fa-globe"></i> Website</a><a href="https://github.com/tilties2/PX4-OmniQuad" class="btn-project" target="_blank"><i class="fab fa-github"></i> Source Code</a></div>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">C++</span>
+                            <span class="tech-tag">ROS2</span>
+                            <span class="tech-tag">PX4</span>
+                            <span class="tech-tag">Gazebo</span>
+                        </div>
+                        <div class="project-links"><a href="https://tilties2.github.io/omniquad-website/" class="btn-project" target="_blank"><i class="fas fa-globe"></i> Website</a>
+                            <a href="https://github.com/tilties2/PX4-OmniQuad" class="btn-project" target="_blank"><i class="fab fa-github"></i> Source Code</a></div>
                     </div>
                 </div>
                 <!-- GIN -->
@@ -178,15 +186,20 @@
                     <div class="project-image-container">
                         <a href="#" target="_blank">
                             <video autoplay loop muted playsinline class="project-image">
-                                <source src="gin_video.mp4" type="video/mp4">
+                                <source src="media/gin_video.mp4" type="video/mp4">
                             </video>
                         </a>
                     </div>
                     <div class="project-details">
                         <h3 class="project-title">Geometry-Informed Neural Network Target Localization</h3>
                         <p class="project-description">A lightweight, real-time target tracking system for UAVs. Utilizing YOLO for object detection, GIN is optimized for low computational overhead, enabling deployment on resource-constrained onboard computers.</p>
-                        <div class="project-tech-stack"><span class="tech-tag">Python</span><span class="tech-tag">YOLO</span><span class="tech-tag">OpenCV</span><span class="tech-tag">ROS</span></div>
-                        <div class="project-links"><a href="#" class="btn-project" target="_blank"><i class="fab fa-github"></i> Source Code</a></div>
+                        <div class="project-tech-stack">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">YOLO</span>
+                            <span class="tech-tag">OpenCV</span>
+                            <span class="tech-tag">ROS</span>
+                        </div>
+                        <div class="project-links"><a href="https://github.com/Flying-Touchman/gin_target_localization" class="btn-project" target="_blank"><i class="fab fa-github"></i> Source Code</a></div>
                     </div>
                 </div>
             </div>
