@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Andrea Berra  - portfolio</title>
+    <title>Andrea Berra - portfolio</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,12 +15,19 @@
     <header>
         <nav class="container">
             <a href="#home" class="nav-logo">Andrea Berra</a>
-            <ul>
+
+            <!-- The navigation list with the correct ID -->
+            <ul id="nav-menu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#publications" class="nav-link">Publications</a></li>
             </ul>
+
+            <!-- The hamburger icon with the correct ID -->
+            <div id="nav-toggle">
+                <i class="fas fa-bars"></i>
+            </div>
         </nav>
     </header>
 
@@ -270,10 +277,10 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
-
     <footer class="site-footer container">
         <p>© <span id="current-year"></span> Andrea Berra. All Rights Reserved.</p>
     </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
