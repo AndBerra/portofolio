@@ -5,8 +5,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoLink = document.querySelector('.nav-logo');
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
-    const timelineLinks = document.querySelectorAll('.timeline-link'); // <-- 1. FIX ADDED HERE
-
+    const timelineLinks = document.querySelectorAll('.timeline-link'); 
+    
 
     // --- robot mobile menu Logic---
     if (navToggle && navMenu) {
@@ -117,12 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
         logoLink.addEventListener('click', handleNavClick);
     }
     
-    // --- 3. FIX ADDED HERE ---
-    // Assign the new, correct function to the timeline links
     timelineLinks.forEach(link => {
         link.addEventListener('click', handleTimelineLinkClick);
     });
-    // --- END OF THE FIX ---
 
 
     // --- INITIAL PAGE LOAD ---
