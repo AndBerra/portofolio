@@ -313,3 +313,64 @@ main { padding-top: var(--header-height); }
 #chat-options { padding: 1rem; border-top: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 8px; }
 .chat-option-btn { width: 100%; padding: 12px; background-color: transparent; border: 1px solid var(--primary-color); color: var(--primary-color); border-radius: 8px; cursor: pointer; text-align: left; transition: background-color 0.2s ease, color 0.2s ease; }
 .chat-option-btn:hover { background-color: var(--primary-color); color: var(--bg-color); }
+
+
+/* --- START OF THE FIX --- */
+/* --- Home Page Updates Timeline Specific Styles --- */
+
+/* Target only the timeline inside the home page layout */
+.home-block .timeline {
+    padding-left: 25px; /* Bring it in a little */
+    position: relative;
+}
+
+/* Make the vertical line shorter to fit the compact design */
+.home-block .timeline::before {
+    top: 5px;
+    bottom: 5px;
+}
+
+/* Reduce the space between the update items */
+.home-block .timeline-item {
+    margin-bottom: 1.25rem; /* Was 2.5rem */
+}
+
+/* Adjust the dot's position and size to match the smaller text */
+.home-block .timeline-item::before {
+    left: -31px; /* Adjust for new padding */
+    top: 5px;    /* Align better with the smaller title */
+    width: 12px;
+    height: 12px;
+}
+
+/* Make the title smaller and less bold */
+.home-block .timeline-item h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+/* Style the link inside the title */
+.home-block .timeline-item h3 a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.home-block .timeline-item h3 a:hover {
+    color: var(--primary-color);
+}
+
+/* Make the description text smaller and tighter */
+.home-block .timeline-item .description {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+/* Make the metadata (company, date) smaller */
+.home-block .timeline-item .company,
+.home-block .timeline-item .date {
+    font-size: 0.8rem;
+}
+/* --- END OF THE FIX --- */

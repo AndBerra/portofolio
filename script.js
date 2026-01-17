@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const logoLink = document.querySelector('.nav-logo');
     const navMenu = document.getElementById('nav-menu');
     const navToggle = document.getElementById('nav-toggle');
+    const timelineLinks = document.querySelectorAll('.timeline-link'); // <-- 1. FIX ADDED HERE
 
 
     // --- robot mobile menu Logic---
@@ -53,6 +54,61 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // handle clicks from the "Latest Updates" section
+    function handleTimelineLinkClick(event) {
+        event.preventDefault();
+        const targetId = event.currentTarget.getAttribute('href'); // e.g., "#pub-icuas25"
+        const targetElement = document.querySelector(targetId);
+        if (!targetElement) return;
+
+        const targetSection = targetElement.closest('.page-section');
+        const currentSection = document.querySelector('.page-section.visible');
+        const headerHeight = document.querySelector('header').offsetHeight;
+
+        // Function to perform the scroll
+        const scrollToTarget = () => {
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        };
+
+        if (targetSection && targetSection !== currentSection) {
+            navLinks.forEach(link => link.classList.remove('active'));
+            const newActiveLink = document.querySelector(`.nav-link[href="#${targetSection.id}"]`);
+            if (newActiveLink) {
+                newActiveLink.classList.add('active');
+            }
+
+            // Start the exit animation for the current section
+            if (currentSection) {
+                currentSection.classList.add('page-exit');
+            }
+
+            // After the exit animation, switch sections and scroll
+            setTimeout(() => {
+                if (currentSection) {
+                    currentSection.classList.remove('visible', 'page-exit');
+                }
+                targetSection.classList.add('visible', 'page-enter');
+                
+                // Scroll to the element immediately after the new section is made visible
+                scrollToTarget();
+
+                // Clean up the enter animation class
+                setTimeout(() => {
+                    targetSection.classList.remove('page-enter');
+                }, 500);
+            }, 400);
+        } 
+        // just need to scroll.
+        else {
+            scrollToTarget();
+        }
+    }
+
     navLinks.forEach(link => {
         link.addEventListener('click', handleNavClick);
     });
@@ -61,6 +117,14 @@ document.addEventListener('DOMContentLoaded', () => {
         logoLink.addEventListener('click', handleNavClick);
     }
     
+    // --- 3. FIX ADDED HERE ---
+    // Assign the new, correct function to the timeline links
+    timelineLinks.forEach(link => {
+        link.addEventListener('click', handleTimelineLinkClick);
+    });
+    // --- END OF THE FIX ---
+
+
     // --- INITIAL PAGE LOAD ---
     const initialSection = document.querySelector('#home');
     const initialLink = document.querySelector('.nav-link[href="#home"]');
