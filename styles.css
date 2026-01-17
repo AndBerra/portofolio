@@ -295,7 +295,7 @@ main {
     margin-bottom: 0;
 }
 
-.home-block h3 {
+.home-block > h3 {
     color: var(--primary-color);
     margin-bottom: 1rem;
     font-size: 1.1rem;
